@@ -10,27 +10,36 @@ import java.util.Objects;
 /**
  * @author Aleh Yemelyanchyk on 10/10/2019.
  */
-public final class Cargo {
-    private final String name;
-    private final int weightTn;
-    private final int loadTimeMin;
+public class Cargo {
+    private String name;
+    private int weightTn;
+    private int loadTimeMin;
 
-    public Cargo(String name, int weightTn, int loadTimeMin) {
-        this.name = name;
-        this.weightTn = weightTn;
-        this.loadTimeMin = loadTimeMin * 10;
+    Cargo() {
     }
 
     public String getName() {
         return name;
     }
 
+    void setName(String name) {
+        this.name = name;
+    }
+
     public int getWeightTn() {
         return weightTn;
     }
 
+    void setWeightTn(int weightTn) {
+        this.weightTn = weightTn;
+    }
+
     public int getLoadTimeMin() {
         return loadTimeMin;
+    }
+
+    void setLoadTimeMin(int loadTimeMin) {
+        this.loadTimeMin = loadTimeMin;
     }
 
     @Override

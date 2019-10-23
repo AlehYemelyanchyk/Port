@@ -5,10 +5,7 @@ package by.epam.ayem.main.service;
 и не превышающим заданную грузоподъемность судна и вместимость порта. В порту работает несколько причалов.
 У одного причала может стоять один корабль. Корабль может загружаться у причала или разгружаться. */
 
-import by.epam.ayem.main.model.Cargo;
-import by.epam.ayem.main.model.Dock;
-import by.epam.ayem.main.model.Port;
-import by.epam.ayem.main.model.Ship;
+import by.epam.ayem.main.model.*;
 
 public class PortMain {
 
@@ -28,10 +25,10 @@ public class PortMain {
         portService.addDock(port, dock3);
         portService.addDock(port, dock4);
 
-        Cargo cargo1 = new Cargo("Dry bulk", 5, 50);
-        Cargo cargo2 = new Cargo("Liquid bulk", 3, 30);
-        Cargo cargo3 = new Cargo("Break bulk", 2, 20);
-        Cargo cargo4 = new Cargo("Container", 10, 5);
+        Cargo cargo1 = new CargoBuilder().addName("Dry bulk").addWeightTn(5).addLoadTimeMin(50).build();
+        Cargo cargo2 = new CargoBuilder().addName("Liquid bulk").addWeightTn(3).addLoadTimeMin(30).build();
+        Cargo cargo3 = new CargoBuilder().addName("Break bulk").addWeightTn(2).addLoadTimeMin(20).build();
+        Cargo cargo4 = new CargoBuilder().addName("Container").addWeightTn(10).addLoadTimeMin(5).build();
 
         portService.addCargo(port, cargo1, 50);
         portService.addCargo(port, cargo2, 10);
@@ -65,27 +62,21 @@ public class PortMain {
 
         portService.countCargoPort(port);
         portService.countCargoShips(ship1, ship2, ship3, ship4, ship5);
+
         for (int i = 0; i <= 3; i++) {
-            new Thread() {
-                @Override
-                public void run() {
-                    for (int i = 0; i <= 2; i++) {
-                        portService.sendToDock(port);
-                    }
+            new Thread(() -> {
+                for (int i1 = 0; i1 <= 2; i1++) {
+                    portService.sendToDock(port);
                 }
-            }.start();
+            }).start();
         }
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                portService.countCargoPort(port);
-                portService.countCargoShips(ship1, ship2, ship3, ship4, ship5);
-            }
-        }.start();
+
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        portService.countCargoPort(port);
+        portService.countCargoShips(ship1, ship2, ship3, ship4, ship5);
     }
 }

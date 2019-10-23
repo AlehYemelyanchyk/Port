@@ -183,16 +183,16 @@ public class PortService {
         int i = random.nextInt(4);
         switch (i) {
             case 0:
-                cargo = new Cargo("Dry bulk", 5, 50);
+                cargo = new CargoBuilder().addName("Dry bulk").addWeightTn(5).addLoadTimeMin(50).build();
                 break;
             case 1:
-                cargo = new Cargo("Liquid bulk", 3, 30);
+                cargo = new CargoBuilder().addName("Liquid bulk").addWeightTn(3).addLoadTimeMin(30).build();
                 break;
             case 2:
-                cargo = new Cargo("Break bulk", 2, 20);
+                cargo = new CargoBuilder().addName("Break bulk").addWeightTn(2).addLoadTimeMin(20).build();
                 break;
             case 3:
-                cargo = new Cargo("Container", 10, 5);
+                cargo = new CargoBuilder().addName("Container").addWeightTn(10).addLoadTimeMin(5).build();
                 break;
         }
         return cargo;
